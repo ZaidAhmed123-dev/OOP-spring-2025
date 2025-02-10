@@ -59,20 +59,25 @@ class Planner{
 	
 	void display()
 	{
+		int flag=0;
 		for(int i=0;i<12;i++)
 		{
-			cout<<"task for month "<<i+1<<endl;
+			cout<<"\ntask for month "<<i+1<<endl;
 			for(int j=0;j<31;j++)
 			{
 				if(task[i][j].empty())
 				{
+					flag=1;
 					continue;
 				}
 				else
 				{
 					cout<<"day "<<j+1<<": "<<task[i][j]<<endl;
+					flag=0;
 				}
 			}
+			if(flag)
+			cout<<"no tasks!\n";
 		}
 	}
 };
@@ -84,9 +89,11 @@ int main()
 	while(1)
 	{
 		int op;
+		cout<<"___________________________________________________________________\n";
 		cout<<"\t\tEvent Planner\n1. add or update task\n2. remove task\n3. display tasks\n4. exit\n";
 		cout<<"choose an option: ";
 		cin>>op;
+		cout<<endl;
 		
 		switch(op)
 		{
