@@ -1,0 +1,78 @@
+#include<iostream>
+#include<fstream>
+#include<sstream>
+#include<string>
+using namespace std;
+
+int main()
+{
+		ifstream vin;
+	vin.open("HybridTruck.txt");
+	
+	if(!vin.is_open())
+	{
+		cout<<"error opening the file!\n";
+	}
+	string st;
+	
+	getline(vin, st);
+	
+	istringstream sin(st);
+	
+	string type,id,name,year,extraData,certificationInfo;
+	
+	getline(sin,type,',');
+	getline(sin,id,',');
+	getline(sin,name,',');
+	getline(sin,year,',');
+	getline(sin,extraData,',');
+	getline(sin,certificationInfo,',');
+	
+	size_t cpos = extraData.find(':');
+	size_t tpos = extraData.find('|');
+	size_t bpos = extraData.find("Battery:");
+	size_t len = tpos - cpos;
+	
+	if(cpos == string::npos)
+	{
+		cout<<"invalid extradata format\n";
+	}
+	
+	if(tpos == string::npos)
+	{
+		cout<<"invalid extradata format\n";
+	}
+	
+	if(bpos == string::npos)
+	{
+		cout<<"invalid extradata format\n";
+	}
+	
+	if(type == "AutonomousCar")
+	{
+		float sv = stof(extraData.substr(cpos + 1));
+		cout<<"Vehicle id: "<<id<<"\nSofware version: "<<sv<<endl;
+	}
+	
+	else if(type == "ElectricVehicle")
+	{
+		int bc = stoi(extraData.substr(cpos + 1));
+		cout<<"Vehicle id: "<<id<<"\nBattery Capacity: "<<bc<<endl;
+	}
+	else if(type == "HybridTruck")
+	{
+		int cargo = stoi(extraData.substr(cpos + 1,len-1));
+		
+		
+		int Battery = stoi(extraData.substr(bpos+8));
+		cout<<"Vehicle id: "<<id<<"\nCargo: "<<cargo<<"\nBattery: "<<Battery<<endl;
+	}
+	else{
+		cout<<"unknown vehicle\n";
+	}
+	
+	vin.close();
+	
+}
+	
+	
