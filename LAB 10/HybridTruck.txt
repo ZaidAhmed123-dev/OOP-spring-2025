@@ -1,0 +1,1 @@
+HybridTruck,HT303,GreenHauler,2021,Cargo:5000|Battery:75,CERT-HYBRID
